@@ -3,4 +3,4 @@ description: Open User Research - A collective of professional user, market, and
 show_drafts: false
 markdown: kramdown
 
-theme: jekyll-theme-minimal
+remote_theme: pages-themes/minimal@v0.2.0
