@@ -1,9 +1,0 @@
-title: OUR.ai
-description: Open User Research - A collective of professional user, market, and product researchers collaborating on AI methods, tooling, and best practices.
-show_drafts: false
-markdown: kramdown
-
-plugins:
-  - jekyll-remote-theme
-
-remote_theme: pages-themes/minimal
