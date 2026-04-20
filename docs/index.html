@@ -1,12 +1,813 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>OUR.ai - Open User Research</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OUR.ai | Open User Research</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a2e1a;
+            --secondary: #2d4a2d;
+            --accent: #4a7c59;
+            --accent-light: #6b9b7a;
+            --accent-dark: #3a6247;
+            --bg-light: #fafaf6;
+            --bg-cream: #f5f4ed;
+            --text-dark: #1a1c18;
+            --text-muted: #5a5d56;
+            --text-light: #8a8d86;
+            --white: #ffffff;
+            --border: #e2e0d8;
+            --shadow: 0 8px 32px rgba(26,46,26,0.06);
+            --shadow-hover: 0 16px 48px rgba(26,46,26,0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--white);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 0;
+        }
+
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo-mark {
+            width: 32px;
+            height: 32px;
+            background: var(--accent);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-dark);
+        }
+
+        .nav-links a.active {
+            color: var(--text-dark);
+            position: relative;
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .cta-btn {
+            background: var(--accent);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+
+        .cta-btn:hover {
+            background: var(--accent-dark);
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            background: var(--bg-cream);
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            right: -10%;
+            width: 60%;
+            height: 120%;
+            background: radial-gradient(ellipse, rgba(99,102,241,0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 720px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            line-height: 1.1;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+            max-width: 560px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 48px;
+            margin-top: 64px;
+            padding-top: 32px;
+            border-top: 1px solid var(--border);
+        }
+
+        .stat-number {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+section {
+            padding: 160px 0;
+        }
+
+        .section-header {
+            margin-bottom: 64px;
+        }
+
+        .section-header h2 {
+            font-size: clamp(1.75rem, 3vw, 2.5rem);
+            color: var(--text-dark);
+            margin-bottom: 12px;
+            letter-spacing: -0.01em;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            max-width: 560px;
+        }
+
+        .mission {
+            background: var(--white);
+        }
+
+        .mission-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            align-items: center;
+        }
+
+        .mission-text h3 {
+            font-size: 1.75rem;
+            margin-bottom: 20px;
+            letter-spacing: -0.01em;
+        }
+
+        .mission-text p {
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .mission-cards {
+            display: grid;
+            gap: 16px;
+        }
+
+        .mission-card {
+            background: var(--bg-light);
+            padding: 24px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .mission-card h4 {
+            font-size: 1rem;
+            margin-bottom: 8px;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .mission-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .values {
+            background: var(--bg-light);
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .value-card {
+            background: var(--white);
+            padding: 32px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .value-card:hover {
+            box-shadow: var(--shadow);
+            transform: translateY(-4px);
+        }
+
+        .value-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--bg-light);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .value-card h4 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+
+        .value-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .join {
+            background: var(--secondary);
+            color: var(--white);
+        }
+
+        .join .section-header h2 {
+            color: var(--white);
+        }
+
+        .join .section-header p {
+            color: rgba(255,255,255,0.6);
+        }
+
+        .join-content {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 64px;
+            align-items: center;
+        }
+
+        .join-text h3 {
+            font-size: 1.75rem;
+            margin-bottom: 16px;
+        }
+
+        .join-text p {
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 24px;
+            max-width: 480px;
+        }
+
+        .join-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+
+        .join-list li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: rgba(255,255,255,0.8);
+        }
+
+        .join-list li::before {
+            content: '•';
+            color: var(--accent-light);
+            font-weight: 600;
+        }
+
+        .join-form {
+            background: var(--white);
+            padding: 32px;
+            border-radius: 12px;
+            color: var(--text-dark);
+            position: relative;
+        }
+
+        .construction-banner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(25deg);
+            width: 160%;
+            background: repeating-linear-gradient(
+                45deg,
+                #fbbf24,
+                #fbbf24 10px,
+                #f59e0b 10px,
+                #f59e0b 20px
+            );
+            color: #78350f;
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 10px 0;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            white-space: nowrap;
+            z-index: 10;
+            text-align: center;
+        }
+
+        .join-form h4 {
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 6px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: var(--accent);
+            color: white;
+            padding: 14px;
+            border: none;
+            border-radius: 6px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: var(--accent-dark);
+        }
+
+        footer {
+            background: var(--primary);
+            color: var(--white);
+            padding: 48px 0 32px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 48px;
+            margin-bottom: 40px;
+        }
+
+        .footer-brand .logo {
+            color: var(--white);
+            margin-bottom: 16px;
+        }
+
+        .footer-brand p {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        .footer-col h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--white);
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-col a:hover {
+            color: var(--accent-light);
+        }
+
+        .footer-bottom {
+            padding-top: 24px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-bottom p {
+            color: rgba(255,255,255,0.4);
+            font-size: 0.8rem;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .mobile-menu-btn span {
+            display: block;
+            width: 20px;
+            height: 2px;
+            background: var(--text-dark);
+            margin: 5px 0;
+        }
+
+        @media (max-width: 1024px) {
+            .mission-grid,
+            .join-content {
+                grid-template-columns: 1fr;
+            }
+
+            .values-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links,
+            nav .cta-btn {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.25rem;
+            }
+
+            .hero-stats {
+                gap: 32px;
+            }
+
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+        }
+    </style>
 </head>
 <body>
-  <h1>Welcome to OUR.ai</h1>
-  <p>Open User Research - A collective of professional user, market, and product researchers collaborating on AI methods, tooling, and best practices.</p>
-  <hr>
-  <p><small>This is a test site.</small></p>
+    <nav>
+        <div class="container nav-inner">
+            <a href="#" class="logo">
+                <span class="logo-mark">OUR</span>
+                OUR.ai
+            </a>
+            <ul class="nav-links">
+                <li><a href="#mission">Mission</a></li>
+                <li><a href="#values">Goals</a></li>
+                <li><a href="#join">Get Involved</a></li>
+            </ul>
+            <button class="mobile-menu-btn" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Advancing Professional User Research Practice with Community-Driven AI Resources</h1>
+                <p>OUR.ai is a collaboratory of professional user, market, and product researchers working together on developing tooling and best practices to ensure shared knowledge and development of our profession.</p>
+                <div class="hero-buttons">
+                    <a href="#join" class="cta-btn">Join the Collaboratory</a>
+                    <a href="#mission" class="cta-btn" style="background: transparent; color: var(--text-dark); border: 1px solid var(--border);">Learn More</a>
+                </div>
+                <div class="hero-stats">
+                    <div>
+                        <div class="stat-number">100+</div>
+                        <div class="stat-label">Research Professionals</div>
+                    </div>
+                    <div>
+                        <div class="stat-number">1000+</div>
+                        <div class="stat-label">Resources</div>
+                    </div>
+                    <div>
+                        <div class="stat-number">1</div>
+                        <div class="stat-label">Community</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="mission" id="mission">
+        <div class="container">
+            <div class="mission-grid">
+                <div class="mission-text">
+                    <h3>Our Mission</h3>
+                    <p>As AI reshapes how research gets done, user, market, and product researchers face a gap: the tools, frameworks, and best practices haven't keep pace with how fast the landscape is shifting. Methodological debates rage about AI-moderated interviews, synthetic participants, and automated synthesis. The field lacks shared infrastructure to navigate these new modalities with rigor.</p>
+                    <p>OUR.ai exists to build that collective foundation by creating open tooling, publishing methodologically grounded research, and developing frameworks that help researchers work with AI thoughtfully and effectively.</p>
+                </div>
+                <div class="mission-cards">
+                    <div class="mission-card">
+                        <h4>Develop Open Resources</h4>
+                        <p>Create and maintain open-source resources for AI-augmented research, from templates to analysis tools.</p>
+                    </div>
+                    <div class="mission-card">
+                        <h4>Publish Methodological Research</h4>
+                        <p>Conduct and publish research on AI research methods, rigor standards, and best practices for user research.</p>
+                    </div>
+                    <div class="mission-card">
+                        <h4>Build an Open Research Community</h4>
+                        <p>Build a community where researchers share knowledge, debate methodologies, and collectively advance user research practice.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="values" id="values">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Goals</h2>
+            </div>
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">🔬</div>
+                    <div>
+                        <h4>Evidence-Based</h4>
+                        <p>We believe in rigorous methodology and data-driven insights. Our work is grounded in established research practices.</p>
+                    </div>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">🌐</div>
+                    <div>
+                        <h4>Open Source</h4>
+                        <p>We believe research tools and findings should be shared openly. Our tooling is free, our papers are free, our community is open.</p>
+                    </div>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">🤝</div>
+                    <div>
+                        <h4>Collaborative</h4>
+                        <p>We believe the best research comes from diverse perspectives. We actively seek contributors from different backgrounds and disciplines.</p>
+                    </div>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">🧪</div>
+                    <div>
+                        <h4>Experimental</h4>
+                        <p>We believe in sharing new ideas and learning from small experiments. Not every experiment will succeed, but every one teaches us something.</p>
+                    </div>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">⚡</div>
+                    <div>
+                        <h4>Pragmatic</h4>
+                        <p>We believe in shipping usable tools over perfect specifications. We prioritize practical impact over theoretical purity.</p>
+                    </div>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">📚</div>
+                    <div>
+                        <h4>Educational</h4>
+                        <p>We believe in sharing knowledge freely. We create resources to help researchers at every level improve their practice.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="join" id="join">
+        <div class="container">
+            <div class="join-content">
+                <div class="join-text">
+                    <h3>Join the Collaboratory</h3>
+                    <p>Whether you're a seasoned user researcher or just starting out, there's a place for you in OUR.ai. We need diverse perspectives and skills.</p>
+                    <ul class="join-list">
+                        <li>Qualitative user researchers exploring AI-augmented methods</li>
+                        <li>Quantitative user researchers scaling with AI tooling</li>
+                        <li>Product researchers building long-term business strategy</li>
+                        <li>Market researchers developing global audience insights</li>
+                    </ul>
+                    <a href="mailto:hello@our.ai" class="cta-btn">Reach Out</a>
+                </div>
+                <div class="join-form">
+                    <div class="construction-banner">Under Construction</div>
+                    <h4>Get in Touch</h4>
+                    <form>
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" placeholder="Your name">
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" placeholder="your@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label>Tell us about yourself</label>
+                            <textarea placeholder="What brings you to OUR.ai? What skills or perspectives do you bring?"></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#" class="logo">
+                        <span class="logo-mark">OUR</span>
+                        OUR.ai
+                    </a>
+                    <p>A collaboratory of professional user, market, and product researchers working together on developing tooling and best practices.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Navigate</h4>
+                    <ul>
+                        <li><a href="#mission">Mission</a></li>
+                        <li><a href="#values">Goals</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Connect</h4>
+                    <ul>
+                        <li><a href="mailto:hello@our.ai">Email</a></li>
+                        <li><a href="https://github.com/alexleavitt/our.ai">GitHub</a></li>
+                        
+                        <li><a href="https://www.linkedin.com/feed/update/urn:li:activity:7449956020983857152/">LinkedIn</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 OUR.ai. Open collective, open research.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.style.boxShadow = '0 2px 20px rgba(0,0,0,0.06)';
+            } else {
+                nav.style.boxShadow = 'none';
+            }
+        });
+
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-links a');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    navLinks.forEach(link => link.classList.remove('active'));
+                    const activeLink = document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
+                    if (activeLink) activeLink.classList.add('active');
+                }
+            });
+        }, { threshold: 0.5 });
+
+        sections.forEach(section => observer.observe(section));
+    </script>
 </body>
 </html>
