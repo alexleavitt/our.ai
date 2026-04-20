@@ -112,14 +112,17 @@
 
         .nav-links a:hover {
             color: var(--text-dark);
+            position: relative;
         }
 
-        .nav-links a.active {
+        .nav-links a.active,
+        .nav-links a:hover {
             color: var(--text-dark);
             position: relative;
         }
 
-        .nav-links a.active::after {
+        .nav-links a.active::after,
+        .nav-links a:hover::after {
             content: '';
             position: absolute;
             bottom: -8px;
@@ -157,16 +160,7 @@
             overflow: hidden;
         }
 
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -30%;
-            right: -10%;
-            width: 60%;
-            height: 120%;
-            background: radial-gradient(ellipse, rgba(99,102,241,0.08) 0%, transparent 70%);
-            pointer-events: none;
-        }
+
 
         .hero-content {
             max-width: 720px;
@@ -326,9 +320,15 @@ section {
             font-size: 0.9rem;
         }
 
-        .join {
+.join {
             background: var(--secondary);
             color: var(--white);
+            position: relative;
+        }
+
+        .join .container {
+            position: relative;
+            z-index: 1;
         }
 
         .join .section-header h2 {
@@ -383,86 +383,43 @@ section {
             border-radius: 12px;
             color: var(--text-dark);
             position: relative;
+            text-align: center;
+        }
+
+        .join-form p {
+            margin-bottom: 24px;
+            color: var(--text-muted);
+        }
+
+        .join-form .cta-btn {
+            display: inline-block;
         }
 
         .construction-banner {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) rotate(25deg);
-            width: 160%;
+            top: 12px;
+            right: -30px;
             background: repeating-linear-gradient(
                 45deg,
-                #fbbf24,
-                #fbbf24 10px,
-                #f59e0b 10px,
-                #f59e0b 20px
+                #10b981,
+                #10b981 10px,
+                #059669 10px,
+                #059669 20px
             );
-            color: #78350f;
-            font-size: 0.8rem;
+            color: white;
+            font-size: 0.65rem;
             font-weight: 700;
-            padding: 10px 0;
+            padding: 6px 20px;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            letter-spacing: 0.05em;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             white-space: nowrap;
             z-index: 10;
-            text-align: center;
+            transform: rotate(38deg);
         }
 
         .join-form h4 {
             margin-bottom: 20px;
-        }
-
-        .form-group {
-            margin-bottom: 16px;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 0.85rem;
-            font-weight: 500;
-            margin-bottom: 6px;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px 14px;
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.9rem;
-            transition: border-color 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--accent);
-        }
-
-        .form-group textarea {
-            min-height: 100px;
-            resize: vertical;
-        }
-
-        .submit-btn {
-            width: 100%;
-            background: var(--accent);
-            color: white;
-            padding: 14px;
-            border: none;
-            border-radius: 6px;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.95rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-        .submit-btn:hover {
-            background: var(--accent-dark);
         }
 
         footer {
@@ -593,8 +550,7 @@ section {
     <nav>
         <div class="container nav-inner">
             <a href="#" class="logo">
-                <span class="logo-mark">OUR</span>
-                OUR.ai
+                <img src="our_logo_black_transparent.png" alt="OUR" style="width:150px;height:auto;display:block;">
             </a>
             <ul class="nav-links">
                 <li><a href="#mission">Mission</a></li>
@@ -613,7 +569,7 @@ section {
         <div class="container">
             <div class="hero-content">
                 <h1>Advancing Professional User Research Practice with Community-Driven AI Resources</h1>
-                <p>OUR.ai is a collaboratory of professional user, market, and product researchers working together on developing tooling and best practices to ensure shared knowledge and development of our profession.</p>
+                <p>OUR.ai is a collaboratory of professional user, market, and product researchers working together on developing tooling and best practices to ensure shared knowledge and development for our profession.</p>
                 <div class="hero-buttons">
                     <a href="#join" class="cta-btn">Join the Collaboratory</a>
                     <a href="#mission" class="cta-btn" style="background: transparent; color: var(--text-dark); border: 1px solid var(--border);">Learn More</a>
@@ -700,7 +656,7 @@ section {
                     <div class="value-icon">⚡</div>
                     <div>
                         <h4>Pragmatic</h4>
-                        <p>We believe in shipping usable tools over perfect specifications. We prioritize practical impact over theoretical purity.</p>
+                        <p>We believe in shipping usable tools over perfect specifications. We prioritize practical impact over theoretical purity (but we still appreciate theory!).</p>
                     </div>
                 </div>
                 <div class="value-card">
@@ -729,23 +685,10 @@ section {
                     <a href="mailto:hello@our.ai" class="cta-btn">Reach Out</a>
                 </div>
                 <div class="join-form">
-                    <div class="construction-banner">Under Construction</div>
-                    <h4>Get in Touch</h4>
-                    <form>
-                        <div class="form-group">
-                            <label>Name</label>
-                            <input type="text" placeholder="Your name">
-                        </div>
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input type="email" placeholder="your@email.com">
-                        </div>
-                        <div class="form-group">
-                            <label>Tell us about yourself</label>
-                            <textarea placeholder="What brings you to OUR.ai? What skills or perspectives do you bring?"></textarea>
-                        </div>
-                        <button type="submit" class="submit-btn">Send Message</button>
-                    </form>
+                    <div class="construction-banner">Just Launched</div>
+                    <h4>Get In Touch</h4>
+                    <p>Visit our Google Form to signal your interest in the working group and provide input into what work we should do!</p>
+                    <a href="https://forms.gle/UBauUbUJMxpMCnKP6" class="cta-btn" target="_blank" rel="noopener">Join the Community</a>
                 </div>
             </div>
         </div>
@@ -755,9 +698,8 @@ section {
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-brand">
-                    <a href="#" class="logo">
-                        <span class="logo-mark">OUR</span>
-                        OUR.ai
+<a href="#" class="logo">
+                        <img src="our_logo_black_transparent.png" alt="OUR" style="width:150px;height:auto;display:block;filter:invert(0.8);">
                     </a>
                     <p>A collaboratory of professional user, market, and product researchers working together on developing tooling and best practices.</p>
                 </div>
